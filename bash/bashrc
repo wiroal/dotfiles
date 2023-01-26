@@ -39,6 +39,13 @@ function task () {
      tree -C
      fi
  }
+ 
+ #-------------- external functions--------------------
+# makes 'cs' cd and ll
+function cs () {
+    cd "$1" && ll
+    }
+
 #This code creates environmental variable WSL to test in vimrc file
 #because I'm using the same init.vim for WSL and Native Ubuntu
 if grep -q Microsoft /proc/version; then
