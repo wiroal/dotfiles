@@ -42,23 +42,6 @@ set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab     " sets tabs to 4
  " sets parenthetical highlighting to just bold
 hi MatchParen cterm=bold ctermbg=Black ctermfg=none
  " sets noexpandtab for Makefiles
-#if &ft == 'make'
-#    setlocal noexpandtab
-#        setlocal tabstop=4
-#        endif
-#"}}}
-#"WSL yank support: this snippet code serves to copy with 'y' to a Windows
-#"Clipboard
-#if $WSL == 'TRUE'
-#    "set your clipboard provider for WSL here
-#    let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
-#    if executable(s:clip)
-#        augroup WSLYank
-#            autocmd!
-#           autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-#        augroup END
-#    endif
-#endif
 
 "Enable by default stripping of extra whitespace on file save for a buffer
 let g:strip_whitespace_on_save = 1                              "see plug ntpeters/vim-better-whitespace
