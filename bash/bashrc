@@ -1,16 +1,26 @@
 # ------ #
 # Author: Maria Ortiz
 # Maintainers: Harbey Rodríguez Rincón
-# Maintainers: William Rozo Alvarez 
+# Maintainers: William Rozo Alvarez
 # Date: Jun 19, 2020
 # License:
 # ------ #
 
 # Configurando PATH
+
+
+export JULIA_PKDIR=/usr/local/julia/julia_pkg
+
+
+export PATH="$PATH:/usr/local/julia/bin"
 export PATH="$PATH:/usr/local/bin"
+export CLICOLORS=1
+PS1="\[\e[32m\]\w\n@$USER: \[\E[0;00M\]"
+export PS1
 
 #------------------------Prompt colors------------- ----- #
 PS1="\n\[\e[38;5;125m\]\u\[\e[0;33m\] at \[\e[38;5;63m\]\h\[\e[0;33m\]:\[\e[38;5;80m\]\w\[\e[0;37m\]\n \[\e[0;33m\]$ \[\e[0;00m\]"
+source /opt/anaconda3/etc/profile.d/conda.sh
 
 
 #------------------------Aliases------------------------- #
@@ -24,50 +34,33 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias vim="nvim"
+alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 
-# navigation
-# https://github.com/chrishwiggins/mise/blob/master/sh/aliases-public.sh
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .4="cd ../../../../"
-alias .5="cd ../../../../../"
-alias dl="cd ~/Downloads"
-alias lh="ls -lh --color=always"
 
-#------------------------Functions----------------------- #
-# Creating task #
-  # $1 is project path
-  # $2 is task name
-function task () {
-  if [ ! -d $1 ];
-  then
-     echo 'Project path not valid'
-  else
-     cd $1
-     mkdir $2
-     cd $2
-     mkdir src input output
-     tree -C
-     fi
- }
+# Funcion para usar el comando 'cs'
 
-#-------------- external functions--------------------
-# makes 'cs' cd and ll
+# makes 'cs' cd an ll
 function cs () {
     cd "$1" && ll
-    }
+}
 
 # Creating task #
-# $1 is task name
 function task(){
-    mkdir "$1" && cd "$1"
-    mkdir input src output
+   mkdir "$1" && cd "$1"
+    mkdir input src output doc share
     cd ..
     tree -C
 }
 
+#------------------------Functions----------------------- #
 #This code creates environmental variable WSL to test in vimrc file
 #because I'm using the same init.vim for WSL and Native Ubuntu
-# done
-
+if grep -q Microsoft /proc/version; then
+    export WSL="TRUE"
+        else
+    export WSL="FALSE"
+fi
+#------------------------Path------------------------------#
+ export PATH="~/resource-utils/bin:$PATH"
+ export LC_ALL='en_US.UTF-8'
+#Done
