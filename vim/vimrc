@@ -1,2 +1,95 @@
-set nocompatible
-syntax on
+" Author: Maria Ortiz
+" Maintainers: Harbey Rodríguez Rincón, William Rozo Alvarez
+" Date: 24 de enero de 2023
+" License:
+" ------
+" Configuración básica para Neovim
+
+" Basic settings
+set number                       " Show line numbers
+set relativenumber               " Show relative line numbers
+set tabstop=4                    " Number of spaces for a tab
+set shiftwidth=4                 " Indent size
+set expandtab                    " Use spaces instead of tabs
+set smarttab                     " Enable smart tab behavior
+set autoindent                   " Enable auto-indentation
+set nocompatible                 " Disable Vi compatibility mode
+set mouse=a                      " Enable mouse support
+set wrap                         " Enable line wrapping
+set spelllang=en                 " Set spellcheck language to English
+set ruler                        " Show cursor position
+set scrolloff=3                  " Show context above and below cursor line
+set clipboard=unnamed            " Use system clipboard
+set noshowmode                   " Don't show mode in the command line
+set backspace=indent,eol,start   " Configure backspace behavior
+
+" Enable syntax highlighting and filetype detection
+syntax enable
+filetype plugin indent on
+
+" Enable color scheme
+set background=dark
+" Uncomment your preferred colorscheme
+" colorscheme solarized8_high
+
+" Visual enhancements
+highlight LineNr ctermfg=grey
+set colorcolumn=80                   " Highlight column after 80 characters
+highlight ColorColumn ctermbg=red guibg=red
+set list                             " Show trailing whitespace and tabs
+set listchars=tab:▸\ ,eol:¬,nbsp:·,trail:·
+
+" Parentheses highlighting
+let g:rainbow_active = 1             " Enable rainbow parentheses
+hi MatchParen cterm=bold ctermbg=Black ctermfg=none
+
+" Enable NERDTree file explorer
+nnoremap <F5> :NERDTreeToggle<CR>    " Map <F5> to toggle NERDTree
+
+" Git commands via vim-fugitive
+nnoremap <leader>gs :Gstatus<CR>     " Show git status
+nnoremap <leader>gd :Gdiff<CR>       " Show git diff
+
+" Strip trailing whitespace on save
+let g:strip_whitespace_on_save = 1
+
+" Plugins
+call plug#begin('~/.config/nvim/plugged')  " Define plugin directory
+
+" Interface and visual plugins
+Plug 'itchyny/lightline.vim'              " Lightweight status bar
+Plug 'ap/vim-buftabline'                  " Buffers as tabs
+Plug 'luochen1990/rainbow'                " Rainbow parentheses
+Plug 'lifepillar/vim-solarized8'          " Solarized colorscheme
+Plug 'ntpeters/vim-better-whitespace'     " Highlight and remove trailing whitespaces
+Plug 'sheerun/vim-polyglot'               " Syntax highlighting for multiple languages
+
+" LaTeX support
+Plug 'lervag/vimtex'                      " LaTeX support
+
+" Prose editing
+Plug 'reedes/vim-pencil'                  " Optimized for writing
+
+" Database support
+Plug 'vim-scripts/dbext.vim'              " Database interaction
+
+" Additional tools
+Plug 'preservim/nerdtree'                 " File explorer
+Plug 'junegunn/fzf.vim'                   " Fuzzy finder
+Plug 'rust-lang/rust.vim'                 " Rust language support
+
+call plug#end()
+
+" Optional: WSL yank support for Windows clipboard
+if exists('$WSL')
+    let s:clip = '/mnt/c/Windows/System32/clip.exe'
+    if executable(s:clip)
+        augroup WSLYank
+            autocmd!
+            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+        augroup END
+    endif
+endif
+
+" Done
+
