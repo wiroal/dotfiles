@@ -1,0 +1,11 @@
+# list all plugins here
+
+MichaelAquilina/zsh-auto-notify
+# alias tips has probs with egrep
+# djui/alias-tips
+caarlos0/zsh-mkc
+zsh-users/zsh-autosuggestions 
+zsh-users/zsh-completions
+zdharma-continuum/fast-syntax-highlighting kind:defer
+
+# done.
