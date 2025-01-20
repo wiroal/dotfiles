@@ -93,3 +93,76 @@ endif
 
 " Done
 
+# Config de Cantor
+
+" Author: Maria Ortiz
+" Maintainers: Harbey Rodríguez Rincón
+" Date: August 21, 2020
+" License:
+" ------
+"
+" Vi Improved
+set nocompatible
+
+" backspace
+set backspace=indent,eol,start
+set clipboard=unnamedplus
+set laststatus=2
+set noshowmode
+set spelllang=en                                                " English spellcheck
+set ruler                                                       " Show where you are
+set scrolloff=3                                                 " Show context above/below cursorline
+
+" Plugins
+call plug#begin(expand('~/.config/nvim/plugged'))               " Pluggins wil be downloaded under the specificied directory
+
+Plug 'itchyny/lightline.vim'                                    " Color mode
+Plug 'ap/vim-buftabline'                                        " Buffers as tabs
+Plug 'luochen1990/rainbow'                                      " Show different levels of parenthesis in different colors
+Plug 'lifepillar/vim-solarized8'                                " Optimized Solarized colorschemes
+Plug 'ntpeters/vim-better-whitespace'                           " To remove trailing whitespace on save, use ':StripWhitesapece to eliminate whitespaces
+call plug#end()
+
+"layout{{{
+let g:rainbow_active = 1
+syntax enable
+set background=dark
+colorscheme solarized8_high
+set relativenumber number                                       " sets line numbers
+highlight LineNr ctermfg=grey
+set colorcolumn=80                                              " color columns beyond 80 characters
+highlight ColorColumn ctermbg=red guibg=red
+set list                                                        " show trailing whitespace
+set listchars=tab:▸\ ,eol:¬,nbsp:·,trail:·                      " remove trailing space
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab     " sets tabs to 4 spaces
+ " sets parenthetical highlighting to just bold
+hi MatchParen cterm=bold ctermbg=Black ctermfg=none
+ " sets noexpandtab for Makefiles
+if &ft == 'make'
+    setlocal noexpandtab
+        setlocal tabstop=4
+        endif
+"}}}
+
+
+"WSL yank support: this snippet code serves to copy with 'y' to a Windows
+"Clipboard
+if $WSL == 'TRUE'
+    "set your clipboard provider for WSL here
+    let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+    if executable(s:clip)
+        augroup WSLYank
+            autocmd!
+            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+        augroup END
+    endif
+endif
+
+"Enable by default stripping of extra whitespace on file save for a buffer
+let g:strip_whitespace_on_save = 1                              "see plug ntpeters/vim-better-whitespace
+
+"done
+
+----
+
+
