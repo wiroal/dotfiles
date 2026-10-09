@@ -8,34 +8,35 @@
 
 # Configurando PATH
 
-
 export JULIA_PKDIR=/usr/local/julia/julia_pkg
 export HISTTIMEFORMAT="%d/%m/%y %T "
-
 
 export PATH="$PATH:/usr/local/julia/bin"
 export PATH="$PATH:/usr/local/bin"
 export CLICOLORS=1
 PS1="\[\e[32m\]\w\n@$USER: \[\E[0;00M\]"
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 export PS1
 
 #------------------------Prompt colors------------- ----- #
 PS1="\n\[\e[38;5;125m\]\u\[\e[0;33m\] at \[\e[38;5;63m\]\h\[\e[0;33m\]:\[\e[38;5;80m\]\w\[\e[0;37m\]\n \[\e[0;33m\]$ \[\e[0;00m\]"
 # source /opt/anaconda3/etc/profile.d/conda.sh
 
-# navigation
+# navegacion
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .4="cd ../../../../"
 alias .5="cd ../../../../../"
 alias dl="cd ~/Downloads"
-alias reload="source ~/.bashrc"
 
 #------------------------Aliases------------------------- #
 alias gs="git status"
 alias gc="git commit -m"
 alias gA="git add -A && git status"
+alias gl="git pull"
 alias gp="git push origin"
 alias j='xdir=$(fasd -dl | fzf --tac) && cd "$xdir"'
 eval "$(fasd --init auto)"
@@ -45,51 +46,74 @@ alias l='ls -CF'
 alias vim="nvim"
 alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 alias hgrep='history | grep'
+alias ls='ls --color=auto'
+alias jep="cd /mnt/c/Users/William.Rozo/OneDrive\ -\ JEP\ Colombia"
 alias reload="source ~/.bashrc"
-
-# listing
-alias l='ls --color -lhF --group-directories-first'
-alias lh="ls -lh --color=always"
-# List all files colorized in long format
-#alias ll="ls -ltrF ${colorflag}"
-# List all files colorized in long format, including dot files
-alias la="ls -laF --color=always"
-# List only directories
-alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
-#alias ll="ls -alhG --color=always"
-alias ll="ls -lFG --color=always"
-
 
 # Funcion para usar el comando 'cs'
 
 # makes 'cs' cd an ll
-function cs () {
-    cd "$1" && ll
+function cs() {
+  cd "$1" && ll
 }
 
 # Creating task #
-function task(){
-   mkdir "$1" && cd "$1"
-    mkdir input src output doc share
-    cd ..
-    tree -C
+function task() {
+  mkdir "$1" && cd "$1"
+  mkdir input src output doc share
+  cd ..
+  tree -C
 }
 
 #------------------------Functions----------------------- #
 #This code creates environmental variable WSL to test in vimrc file
 #because I'm using the same init.vim for WSL and Native Ubuntu
 if grep -q Microsoft /proc/version; then
-    export WSL="TRUE"
-        else
-    export WSL="FALSE"
+  export WSL="TRUE"
+else
+  export WSL="FALSE"
 fi
 #------------------------Path------------------------------#
- export PATH="~/resource-utils/bin:$PATH"
- export LC_ALL='en_US.UTF-8'
+export PATH="~/resource-utils/bin:$PATH"
+export LC_ALL='en_US.UTF-8'
 #Done
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="/usr/local/nvim-linux64/bin:$PATH"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/wrozo/miniconda3/bin/conda' 'shell.bash' 'hook' 2>/dev/null)"
+if [ $? -eq 0 ]; then
+  eval "$__conda_setup"
+else
+  if [ -f "/home/wrozo/miniconda3/etc/profile.d/conda.sh" ]; then
+    . "/home/wrozo/miniconda3/etc/profile.d/conda.sh"
+  else
+    export PATH="/home/wrozo/miniconda3/bin:$PATH"
+  fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+export PATH="/usr/bin:$PATH"
+
+alias luamake="/home/wrozo/lua-language-server/3rd/luamake/luamake"
+export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
+export HF_HOME=/mnt/d/huggingface_cache
+export HUGGINGFACE_HUB_CACHE=/mnt/d/huggingface_cache/hub
+
+# Hugging Face cache en D:
+export HF_HOME=/mnt/d/huggingface_cache
+export HUGGINGFACE_HUB_CACHE=/mnt/d/huggingface_cache/hub
+
+alias md='glow'
+export EDITOR=nvim
+export VISUAL=nvim
+
+# Activar automáticamente .venv al entrar a WSL
+if [ -f "$HOME/.venv/bin/activate" ]; then
+  source "$HOME/.venv/bin/activate"
+fi
